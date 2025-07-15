@@ -96,7 +96,7 @@ for i = 1:length(files)
     end
     
     if ~isnan(selected_radius)
-        data(i) = max(selected_radius) * 2 / pixels * linewidth;
+        data(i) = max(selected_radius) * 2 / pixels * lineWidth;
     else
         data(i) = NaN;
     end
