@@ -1,6 +1,11 @@
-folderPath = "D:/16-6 - Solder bump photos/7-14 Run 1/Grid Row 1";
+folderPath = "D:\16-6 - Solder bump photos\7-15 PCB 1-1 and 1-2\7-15 PCB 1-1\";
 lineWidth = 1000; % calibration line width in um
 pixels = 1356; % calibration pixels
+
+columns = 10;
+rows = 10;
+
+outMatrix = zeros(rows, columns);
 
 % --- Setup Parallel Environment ---
 if isempty(gcp('nocreate'))
@@ -45,7 +50,7 @@ for i = 1:numFiles
 
     % --- FAST PATH: Exactly one circle found. No GUI. ---
     if isscalar(radii)
-        data(completedIdx) = radii * 2 / 680 * 1000;
+        data(completedIdx) = radii * 2 / pixels * lineWidth;
         fprintf('    AUTO-PROCESSED. Diameter: %.2f micrometers\n', data(completedIdx));
         continue; % Immediately skip to the next fetchNext call
     end
@@ -114,5 +119,44 @@ for i = 1:numFiles
     
     close(h);
 end
+
+% Save to matrix
+for i = 1:length(data)
+    outMatrix(i) = data(i);
+end
+
+% Save data
+fid = fopen("data.txt", "w");
+fprintf(fid, "%f\n", data);
+fclose(fid);
+
+% Copy to clipboard
+
+% clipboard("copy", sprintf("%f\n", data));
+
+stringCells = arrayfun(@(x) num2str(x), outMatrix, 'UniformOutput', false);
+lengths = cellfun(@length, stringCells);
+[rows, cols] = size(outMatrix);
+totalChars = sum(lengths(:)) + (cols - 1) * rows + (rows - 1);
+clipboardString = blanks(totalChars);
+currentIndex = 1;
+for i = 1:rows
+    for j = 1:cols
+        numStr = stringCells{i, j};
+        numLength = lengths(i, j);
+        clipboardString(currentIndex : currentIndex + numLength - 1) = numStr;
+        currentIndex = currentIndex + numLength;
+        if j < cols
+            clipboardString(currentIndex) = sprintf('\t');
+            currentIndex = currentIndex + 1;
+        end
+    end
+    if i < rows
+        clipboardString(currentIndex) = newline;
+        currentIndex = currentIndex + 1;
+    end
+end
+clipboard('copy', clipboardString);
+
 
 disp('All images processed.');

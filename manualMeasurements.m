@@ -5,9 +5,8 @@ close all;
 
 % --- Configuration ---
 % Define the conversion from pixels to your desired unit (e.g., micrometers).
-% The previous script used a scale where 680 pixels = 2000 micrometers.
 % You can adjust this value based on your microscope/camera calibration.
-PIXELS_PER_MM = 340; % (e.g., 680 pixels / 2mm)
+PIXELS_PER_MM = 1356; % (e.g., 680 pixels / 2mm)
 MICROMETERS_PER_MM = 1000;
 SCALE = MICROMETERS_PER_MM / PIXELS_PER_MM; % Resulting scale in um/pixel
 
@@ -29,6 +28,9 @@ while true
     if isempty(filePath)
         break;
     end
+
+    % Remove quotes from Ctrl+shift+c in Windows Explorer
+    filePath = replace(filePath, '"', '');
     
     % 3. Check if the file exists before trying to open it
     if ~exist(filePath, 'file')
@@ -92,6 +94,7 @@ while true
     result_string = sprintf('Measured Diameter: %.2f micrometers. Press Enter to continue.', diameter_um);
     title(result_string);
     fprintf('--> File: %s | Diameter: %.2f micrometers\n\n', filePath, diameter_um);
+    clipboard("copy", diameter_um);
     
     % 10. Wait for user to press Enter to close the figure
     k = 0;
