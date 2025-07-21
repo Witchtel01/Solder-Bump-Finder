@@ -1,4 +1,4 @@
-folderPath = "D:\16-6 - Solder bump photos\7_15_ReflowBumps\410Pad";
+folderPath = "D:\16-6 - Solder bump photos\1800 bumps brandon\";
 lineWidth = 1000; % calibration line width in um
 pixels = 1356; % calibration pixels
 columns = 10;
@@ -24,7 +24,7 @@ data = zeros(1, length(files));
 % --- Prime the Pipeline ---
 % Asynchronously start processing the FIRST image
 fprintf('Starting job for image 1: %s\n', files(1).name);
-F = parfeval(p, @processImage, 3, fullfile(files(1).folder, files(1).name)); % 3 output arguments
+F = parfeval(p, @processImageOriginal, 3, fullfile(files(1).folder, files(1).name)); % 3 output arguments
 
 for i = 1:length(files)
     % --- 1. FETCH RESULTS for the CURRENT image ---
@@ -37,7 +37,7 @@ for i = 1:length(files)
     if (i + 1) <= length(files)
         fprintf('Starting job for image %d: %s\n', i + 1, files(i+1).name);
         nextFilePath = fullfile(files(i+1).folder, files(i+1).name);
-        F = parfeval(p, @processImage, 3, nextFilePath);
+        F = parfeval(p, @processImageOriginal, 3, nextFilePath);
     end
 
     % --- 3. INTERACT WITH USER (This logic is mostly unchanged) ---

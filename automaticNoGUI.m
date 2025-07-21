@@ -1,4 +1,4 @@
-folderPath = "D:\16-6 - Solder bump photos\7-15 PCB 1-1 and 1-2\7-15 PCB 1-1\";
+folderPath = "D:\16-6 - Solder bump photos\1800 bumps brandon\";
 lineWidth = 1000; % calibration line width in um
 pixels = 1356; % calibration pixels
 
@@ -33,7 +33,7 @@ fprintf('Submitting all %d jobs to the parallel pool...\n', numFiles);
 for idx = 1:numFiles
     fullFilePath = fullfile(files(idx).folder, files(idx).name);
     % Each F(idx) is a placeholder for the results of processImage
-    F(idx) = parfeval(p, @processImage, 3, fullFilePath);
+    F(idx) = parfeval(p, @processImageOriginal, 3, fullFilePath);
 end
 fprintf('All jobs submitted. Now processing results as they complete.\n\n');
 

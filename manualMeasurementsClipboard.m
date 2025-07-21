@@ -6,8 +6,8 @@ close all;
 % --- Configuration ---
 % Define the conversion from pixels to your desired unit (e.g., micrometers).
 % You can adjust this value based on your microscope/camera calibration.
-PIXELS_PER_MM = 1356; % (e.g., 680 pixels / 2mm)
-MICROMETERS_PER_MM = 1000;
+PIXELS_PER_MM = 1512; % (e.g., 680 pixels / 2mm)
+MICROMETERS_PER_MM = 550;
 SCALE = MICROMETERS_PER_MM / PIXELS_PER_MM; % Resulting scale in um/pixel
 
 
