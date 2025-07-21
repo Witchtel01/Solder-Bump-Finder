@@ -9,7 +9,7 @@ close all;
 PIXELS_PER_MM = 1356; % (e.g., 680 pixels / 2mm)
 MICROMETERS_PER_MM = 1000;
 SCALE = MICROMETERS_PER_MM / PIXELS_PER_MM; % Resulting scale in um/pixel
-folderPath = "D:\16-6 - Solder bump photos\7-17 prereflow pcb 1\360 consistency test (run 1 dg .325)";
+folderPath = "D:\16-6 - Solder bump photos\7-17 prereflow pcb 1\Postreflow\360 consistency test (run 1 dg .325)";
 rws = 10; % Rows
 cls = 10; % Columns
 
